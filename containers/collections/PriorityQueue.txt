@@ -1,0 +1,117 @@
+//MaxPriorityQueue api definition
+function MaxPriorityQueue(){
+    this._arr=new Array();
+    this._size=0;
+
+};
+
+MaxPriorityQueue.prototype={
+    constructor:MaxPriorityQueue,
+    insert:function(v){},
+    max:function(){},
+    delMax:function(){},
+    isEmpty:function(){},
+    size:function(){}
+};
+
+//MaxPriorityQueue implement
+(function(){
+    var FIRST_KEY=1;
+
+    MaxPriorityQueue.prototype.insert=function(v){
+              this._size++;
+        this._arr[this._size]=v;
+        swim(this._arr,this._size);
+  
+    }
+    MaxPriorityQueue.prototype.max=function(){
+        if(this.isEmpty()){
+            throw "The queue is empty!";
+        }
+        return this._arr[FIRST_KEY];
+    }
+
+    MaxPriorityQueue.prototype.delMax=function(){
+        if(this.isEmpty()){
+            throw "The queue is empty!";
+        }
+        var t=this._arr[FIRST_KEY];
+        if(this._size==FIRST_KEY){
+            //only one
+
+        }else{
+            //use the tail to override the head
+            this._arr[FIRST_KEY]=this._arr[this._size];    
+        }
+        //null pointer for gc
+        this._arr[this._size]=null;        
+        this._size--;
+        sink(this._arr,FIRST_KEY,this._size);
+        return t;
+    }
+
+    MaxPriorityQueue.prototype.isEmpty=function(){
+        return this._size==0;
+    }
+
+    MaxPriorityQueue.prototype.size=function(){
+        return this._size;
+    }
+
+    function swim(arr,i){
+        if(i<=FIRST_KEY){
+            return;
+        }
+        var j=Math.floor(i/2);
+        if(arr[j]<arr[i]){
+            swap(arr,j,i);
+            swim(arr,j);
+        }else{
+              //in the right position
+            return;
+        }
+    }
+
+    function sink(arr,i,size){
+        var left=i*2;
+        if(left>size){
+            return;
+        }
+        var right=left+1;
+        var target=max(arr,left,right);
+        if(arr[i]<arr[target]){
+            swap(arr,i,target);
+            sink(arr,target,size);
+        }else{
+            //in the right position
+            return;
+        }
+    }
+
+    function swap(arr,i,j){
+        var temp=arr[i];
+        arr[i]=arr[j];
+        arr[j]=temp;
+    }
+
+    function max(arr,i,j){
+        if(!arr[j]){
+            return i;
+        }
+        return arr[i]>arr[j]?i:j;
+    }
+})();
+
+
+//unit test
+(function(){
+    var myArr=[10,9,6,0,1,2,7,8,3,10];
+    var pq=new MaxPriorityQueue();
+    for(var i=0;i<myArr.length;i++){
+        pq.insert(myArr[i]);
+    }
+    while(!pq.isEmpty()){
+        var t=pq.delMax();
+        console.log(t);
+    }
+})();
