@@ -9,7 +9,7 @@ Stack.prototype={
     push:function(v){
         //resize
         if(this._count==this._size){
-            _resize(this._size*2);
+            this._resize(this._size*2);
         }
         this.arr[this._count]=v;
         this._count++;
@@ -23,7 +23,7 @@ Stack.prototype={
         this._count--;
         //resize
         if(this._count<(this._size/4)){
-            _resize(this._size/4);
+            this._resize(this._size/4);
         }
         return temp;
     },
@@ -42,6 +42,20 @@ Stack.prototype={
             newArr=this.arr[i];
         }
         this.arr=newArr;
+    },
+    iterator:function(){
+        var _this=this;
+        var len=this.size();
+        var curr=len;
+        return {
+            hasNext:function(){
+                return (curr>0);
+            },
+            next:function(){
+                curr--;
+                return _this.arr[curr];
+            }
+        }
     }
 };
 
@@ -50,13 +64,26 @@ Stack.prototype={
     var s=new Stack();
     s.push(11111);
     var aaa=s.size();
-    assert(aaa==1);
+    assert(aaa==1);      
     var bbb=s.pop();
 
     assert(bbb==11111);
     assert(s.isEmpty());
+    
+    s.push(9);
+    s.push(0);
+    testIterator(s);
     console.log("Stack test success.");
 
+    function testIterator(s){
+        var count=0;
+        var itr=s.iterator();
+        while(itr.hasNext()){
+            itr.next();
+            count++;
+        }
+        assert(count==s.size());
+    }
     function assert(b){
         if(!b){
             throw 1;
