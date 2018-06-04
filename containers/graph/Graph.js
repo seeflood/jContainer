@@ -4,12 +4,18 @@
 Graph.prototype={
     constructor:Graph,
     addEdge:function(a,b){},
+    /**
+        find ajacent vertices
+    **/    
     adj:function(v){},
     sizeOfVertices:function(){},
     sizeOfEdges:function(){}
 };
 
 function Graph(sizeOfV){
+    if(isNaN(sizeOfV)){
+        throw "size of v must be a number.";
+    }
     this.sizeV=sizeOfV;
     this.vertices=new Array(sizeOfV);
     this.sizeE=0;
@@ -34,7 +40,7 @@ function Graph(sizeOfV){
       return this.sizeE;
     };    
     Graph.prototype.sizeOfVertices=function(){
-      return this.sizeOfV;
+      return this.sizeV;
     };
 })();
 

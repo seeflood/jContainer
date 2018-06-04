@@ -7,7 +7,8 @@ Bag.prototype={
     remove:function(v){},
     size:function(){},
     isEmpty:function(){},
-    contains:function(){}
+    contains:function(){},
+    iterator:function(){}
 };
 
 function Bag(){
@@ -65,6 +66,20 @@ Implementation
     Bag.prototype.isEmpty=function(){
         return this._size==0;
     };
+
+    Bag.prototype.iterator=function(){
+        var head=new Node(0,this.root);
+        var itr={
+            hasNext:function(){
+                return head.next!=null;
+            },
+            next:function(){
+                head=head.next;
+                return head.val;
+            }
+        }  ;
+        return itr;
+    };
     function Node(val,next){
         this.val=val;
         this.next=next;
@@ -102,6 +117,14 @@ Implementation
         assert(b.contains(10));
         b.remove(4);
         assert(!b.contains(4));
+
+        var itr=b.iterator();
+        var count=0;
+        while(itr.hasNext()){
+            itr.next();
+            count++;
+        }
+        assert(count==b.size());
         
         function assert(b){
             if(!b){
