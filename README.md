@@ -13,7 +13,7 @@ This is a container library for javascript,which include frequently used contain
 特例是复杂的数据结构可能依赖简单结构的js、工具类依赖容器js。具体包括：
 
 - Graph.js依赖Bag.js
-- GraphUtils.js依赖Graph.js
+- GraphUtils.js依赖Graph.js,Stack.js,Queue.js
 
 
 Technically,you can copy only the js file you need into you project.
@@ -21,4 +21,4 @@ Technically,you can copy only the js file you need into you project.
 Exceptions are:
 
 - Graph.js requires Bag.js
-- GraphUtils.js requires Graph.js
+- GraphUtils.js requires Graph.js,Stack.js,Queue.js

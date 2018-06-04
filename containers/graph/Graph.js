@@ -5,7 +5,8 @@ Graph.prototype={
     constructor:Graph,
     addEdge:function(a,b){},
     /**
-        find ajacent vertices
+        find ajacent vertices.
+        return an instance of Bag
     **/    
     adj:function(v){},
     sizeOfVertices:function(){},
