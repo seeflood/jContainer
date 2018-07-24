@@ -1,5 +1,5 @@
 /**
-    Graph API
+    Undirected Graph API
 **/
 Graph.prototype={
     constructor:Graph,
@@ -15,7 +15,7 @@ Graph.prototype={
 
 function Graph(sizeOfV){
     if(isNaN(sizeOfV)){
-        throw "size of v must be a number.";
+        throw "The size of vertices must be a number.";
     }
     this.sizeV=sizeOfV;
     this.vertices=new Array(sizeOfV);
